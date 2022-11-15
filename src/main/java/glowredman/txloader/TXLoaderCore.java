@@ -26,7 +26,6 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
     static final Logger LOGGER = LogManager.getLogger("TX Loader");
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     static final List<Asset> REMOTE_ASSETS = new ArrayList<>();
-    static boolean SRGmappings;
     static File modFile;
     static File mcLocation;
     static File configDir;
@@ -51,7 +50,6 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
-        SRGmappings = (boolean) data.get("runtimeDeobfuscationEnabled"); // true: SRG, false: MCP
         modFile = (File) data.get("coremodLocation");
         mcLocation = (File) data.get("mcLocation");
         configDir = new File(mcLocation, "config/txloader");

@@ -2,6 +2,7 @@ package glowredman.txloader;
 
 import java.util.List;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.launchwrapper.Launch;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -24,6 +25,7 @@ public class TXMinecraftTransformer implements IClassTransformer {
 
     private static byte[] transformMinecraft(byte[] basicClass) {
         TXLoaderCore.LOGGER.info("Transforming net.minecraft.client.Minecraft");
+        boolean devEnv = (boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
         ClassNode classNode = new ClassNode();
         ClassReader classReader = new ClassReader(basicClass);
@@ -31,7 +33,7 @@ public class TXMinecraftTransformer implements IClassTransformer {
 
         // find refreshResources() method
         MethodNode targetMethod = null;
-        final String refreshResourcesName = TXLoaderCore.SRGmappings ? "func_110436_a" : "refreshResources";
+        final String refreshResourcesName = devEnv ? "refreshResources" : "func_110436_a";
         final String refreshResourcesDesc = "()V";
 
         for (MethodNode method : classNode.methods) {
@@ -45,7 +47,7 @@ public class TXMinecraftTransformer implements IClassTransformer {
 
         // find first invocation of IReloadableResourceManager.reloadResources()
         AbstractInsnNode targetInsn = null;
-        final String reloadResourcesName = TXLoaderCore.SRGmappings ? "func_110541_a" : "reloadResources";
+        final String reloadResourcesName = devEnv ? "reloadResources" : "func_110541_a";
         final String reloadResourcesDesc = "(Ljava/util/List;)V";
 
         for (AbstractInsnNode ain : targetMethod.instructions.toArray()) {
