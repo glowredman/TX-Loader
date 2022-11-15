@@ -16,13 +16,12 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Name("TX Loader Core " + TXLoaderCore.VERSION)
+@Name("TX Loader Core")
 @TransformerExclusions("glowredman.txloader")
 @SortingIndex(1001)
 @MCVersion("1.7.10")
 public class TXLoaderCore implements IFMLLoadingPlugin {
 
-    public static final String VERSION = "GRADLETOKEN_VERSION";
     static final Logger LOGGER = LogManager.getLogger("TX Loader");
     static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     static final List<Asset> REMOTE_ASSETS = new ArrayList<>();

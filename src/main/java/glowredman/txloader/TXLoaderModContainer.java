@@ -22,7 +22,7 @@ public class TXLoaderModContainer extends DummyModContainer {
         md.modId = "txloader";
         md.name = "TX Loader";
         md.url = "https://github.com/glowredman/TX-Loader";
-        md.version = TXLoaderCore.VERSION;
+        md.version = "GRADLETOKEN_VERSION";
     }
 
     @Override
