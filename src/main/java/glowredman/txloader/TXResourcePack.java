@@ -31,9 +31,7 @@ public class TXResourcePack implements IResourcePack {
 
     @Override
     public InputStream getInputStream(ResourceLocation rl) throws IOException {
-        return this.resourceExists(rl)
-                ? new FileInputStream(this.getResourcePath(rl).toFile())
-                : null;
+        return new FileInputStream(this.getResourcePath(rl).toFile());
     }
 
     @Override
