@@ -44,16 +44,21 @@ class TXRemoteHandler {
 
     static void getAssets() {
         Map<String, Map<String, JAsset>> assets = new HashMap<>();
+        int added = 0;
+        int skipped = 0;
+        int failed = 0;
 
         for (Asset asset : TXLoaderCore.REMOTE_ASSETS) {
             File file = asset.getFile();
             if (file.exists()) {
+                skipped++;
                 continue;
             }
 
             if (!assets.containsKey(asset.version)) {
                 String url = VERSIONS.get(asset.version);
                 if (url == null) {
+                    failed++;
                     continue;
                 }
                 try {
@@ -70,11 +75,13 @@ class TXRemoteHandler {
                 } catch (Exception e) {
                     TXLoaderCore.LOGGER.error("Failed to get asset information!", e);
                     assets.put(asset.version, new HashMap<>()); // don't check this version again...
+                    failed++;
                     continue;
                 }
             }
             JAsset jasset = assets.get(asset.version).get(asset.resourceLocation);
             if (jasset == null) {
+                failed++;
                 continue;
             }
 
@@ -83,6 +90,7 @@ class TXRemoteHandler {
                 data = IOUtils.toByteArray(jasset.getURL());
             } catch (Exception e) {
                 TXLoaderCore.LOGGER.error("Failed to get asset!", e);
+                failed++;
                 continue;
             }
             file.getParentFile().mkdirs();
@@ -90,10 +98,12 @@ class TXRemoteHandler {
                 FileUtils.writeByteArrayToFile(file, data);
             } catch (Exception e) {
                 TXLoaderCore.LOGGER.error("Failed to save asset!", e);
+                failed++;
             }
-            TXLoaderCore.LOGGER.debug("Successfully fetched " + asset.resourceLocation);
+            TXLoaderCore.LOGGER.debug("Successfully fetched {}", asset.resourceLocation);
+            added++;
         }
-        TXLoaderCore.LOGGER.info("Successfully fetched all assets.");
+        TXLoaderCore.LOGGER.info("Successfully added {} assets. ({} skipped, {} failed)", added, skipped, failed);
     }
 
     private static class JVersionManifest {
