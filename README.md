@@ -1,4 +1,7 @@
-# TX Loader
+[![](http://cf.way2muchnoise.eu/706505.svg)](https://www.curseforge.com/minecraft/mc-mods/tx-loader) [![](http://cf.way2muchnoise.eu/versions/706505.svg)](https://www.curseforge.com/minecraft/mc-mods/tx-loader)
+
+TX Loader
+=================
 
 **Downloads:** [Modrinth](https://modrinth.com/mod/tx-loader) [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tx-loader)
 
