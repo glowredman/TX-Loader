@@ -1,6 +1,6 @@
 package glowredman.txloader;
 
-import glowredman.txloader.TXConfigHandler.Asset;
+import glowredman.txloader.ConfigHandler.Asset;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,7 +12,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-class TXRemoteHandler {
+class RemoteHandler {
 
     static String latestRelease;
     static final Map<String, String> VERSIONS = new LinkedHashMap<>();

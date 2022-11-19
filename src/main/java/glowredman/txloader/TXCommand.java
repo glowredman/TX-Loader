@@ -1,6 +1,6 @@
 package glowredman.txloader;
 
-import glowredman.txloader.TXConfigHandler.Asset;
+import glowredman.txloader.ConfigHandler.Asset;
 import java.util.List;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
@@ -40,7 +40,7 @@ public class TXCommand implements ICommand {
             return;
         }
         if (args[0].equals("save")) {
-            if (TXConfigHandler.save()) {
+            if (ConfigHandler.save()) {
                 sender.addChatMessage(getColoredText(
                         "Config saved successfully. The Changes take effect after restarting the Game.",
                         EnumChatFormatting.GREEN));
@@ -89,7 +89,7 @@ public class TXCommand implements ICommand {
             return null;
         }
         if (args.length == 2) {
-            return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, TXRemoteHandler.VERSIONS.keySet());
+            return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, RemoteHandler.VERSIONS.keySet());
         }
         if (args.length == 4 || args.length == 5) {
             return CommandBase.getListOfStringsMatchingLastWord(args, "true", "false");

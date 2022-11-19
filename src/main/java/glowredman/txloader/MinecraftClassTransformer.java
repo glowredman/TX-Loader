@@ -13,7 +13,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-public class TXMinecraftTransformer implements IClassTransformer {
+public class MinecraftClassTransformer implements IClassTransformer {
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
@@ -67,7 +67,7 @@ public class TXMinecraftTransformer implements IClassTransformer {
         InsnList insertForcePackInsnList = new InsnList();
         insertForcePackInsnList.add(new MethodInsnNode(
                 Opcodes.INVOKESTATIC,
-                "glowredman/txloader/TXMinecraftTransformer",
+                "glowredman/txloader/MinecraftClassTransformer",
                 "insertForcePack",
                 "(Ljava/util/List;)V",
                 false));

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 
-class TXConfigHandler {
+class ConfigHandler {
 
     private static File configFile;
     private static final Type TYPE = new TypeToken<List<Asset>>() {
@@ -107,7 +107,7 @@ class TXConfigHandler {
         String resourceLocation;
         String resourceLocationOverride;
         boolean forceLoad = false;
-        String version = TXRemoteHandler.latestRelease;
+        String version = RemoteHandler.latestRelease;
         transient boolean addedByMod = false;
 
         Asset(String resourceLocation, String version) {

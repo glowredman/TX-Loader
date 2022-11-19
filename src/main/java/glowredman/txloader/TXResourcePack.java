@@ -43,7 +43,7 @@ public class TXResourcePack implements IResourcePack {
     @Override
     public Set getResourceDomains() {
         if (!fetchedAssets && TXLoaderCore.isRemoteReachable) {
-            TXRemoteHandler.getAssets();
+            RemoteHandler.getAssets();
             fetchedAssets = true;
         }
 
