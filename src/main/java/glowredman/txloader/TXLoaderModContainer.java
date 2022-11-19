@@ -48,6 +48,6 @@ public class TXLoaderModContainer extends DummyModContainer {
 
     @Subscribe
     public void serverStarting(FMLServerStartingEvent event) {
-        event.registerServerCommand(new TXCommand());
+        event.registerServerCommand(new CommandTX());
     }
 }
