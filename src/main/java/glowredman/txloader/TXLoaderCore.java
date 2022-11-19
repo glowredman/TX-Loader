@@ -50,7 +50,7 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
     public void injectData(Map<String, Object> data) {
         modFile = (File) data.get("coremodLocation");
         mcLocation = (File) data.get("mcLocation");
-        configDir = new File(mcLocation, "config" + File.pathSeparator + "txloader");
+        configDir = new File(mcLocation, "config" + File.separator + "txloader");
         resourcesDir = new File(configDir, "load");
         resourcesDir.mkdirs();
         forceResourcesDir = new File(configDir, "forceload");
