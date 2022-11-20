@@ -2,6 +2,7 @@ package glowredman.txloader;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
@@ -33,12 +34,14 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[] {MinecraftClassTransformer.class.getName()};
+        return FMLLaunchHandler.side().isClient()
+                ? new String[] {MinecraftClassTransformer.class.getName()}
+                : new String[0];
     }
 
     @Override
     public String getModContainerClass() {
-        return "glowredman.txloader.TXLoaderModContainer";
+        return FMLLaunchHandler.side().isClient() ? "glowredman.txloader.TXLoaderModContainer" : null;
     }
 
     @Override
@@ -48,6 +51,10 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
 
     @Override
     public void injectData(Map<String, Object> data) {
+        if (FMLLaunchHandler.side().isServer()) {
+            return;
+        }
+
         modFile = (File) data.get("coremodLocation");
         mcLocation = (File) data.get("mcLocation");
         configDir = new File(mcLocation, "config" + File.separator + "txloader");

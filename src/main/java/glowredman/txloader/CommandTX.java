@@ -58,12 +58,14 @@ public class CommandTX implements ICommand {
                 return;
             }
             args = fixSpacesForVersion(args);
-            if(args.length == 0) {
+            if (args.length == 0) {
                 sender.addChatMessage(getColoredText("Missing closing Quotation Mark!", EnumChatFormatting.RED));
                 return;
             }
             if (args.length > 5) {
-                sender.addChatMessage(getColoredText("Too many Arguments! If your Version has Spaces, wrap it in Quotation Marks.", EnumChatFormatting.RED));
+                sender.addChatMessage(getColoredText(
+                        "Too many Arguments! If your Version has Spaces, wrap it in Quotation Marks.",
+                        EnumChatFormatting.RED));
                 return;
             }
             if (args.length == 3) {
@@ -122,60 +124,60 @@ public class CommandTX implements ICommand {
     private static IChatComponent getColoredText(String text, EnumChatFormatting color) {
         return new ChatComponentText(text).setChatStyle(new ChatStyle().setColor(color));
     }
-    
+
     /**
      * Some Minecraft versions have spaces in their name (e.g. <code>1.14.2 Pre-Release 4</code>).
      * The later part of {@link CommandTX#processCommand(ICommandSender, String[])} assumes the version to only be in one element of the <code>args</code>-array.
-     * Minecrafts splits the entered command at the spaces 
+     * Minecrafts splits the entered command at the spaces
      * @param args the command arguments, as passed to {@link CommandTX#processCommand(ICommandSender, String[])}
      * @return <b>args</b> if no version wrapping was done<br><b>args</b> with all version elements joined together, if valid version wrapping was done<br>an empty {@link String} array, if invalid wrapping was done
-     * @author glowredman 
+     * @author glowredman
      * @see CommandHandler#executeCommand(ICommandSender, String)
      * @see ClientCommandHandler#executeCommand(ICommandSender, String)
      */
     private static String[] fixSpacesForVersion(String[] args) {
-        
+
         // return early, if no wrapping is applied
-        if(!args[1].startsWith("\"")) {
+        if (!args[1].startsWith("\"")) {
             return args;
         }
-        
+
         // find last element
         int end = 0;
-        for(int i = 1; i < args.length; i++) {
-            if(args[i].endsWith("\"")) {
+        for (int i = 1; i < args.length; i++) {
+            if (args[i].endsWith("\"")) {
                 end = i;
                 break;
             }
         }
-        
+
         // return early if no closing quotation mark was found
-        if(end == 0) {
+        if (end == 0) {
             return new String[0]; // invalid wrapping
         }
-        
+
         int offset = end - 1;
         String[] fixedArgs = new String[args.length - offset];
-        
+
         // join version elements
         StringBuilder sb = new StringBuilder();
         sb.append(args[1]);
-        for(int i = 2; i <= end; i++) {
+        for (int i = 2; i <= end; i++) {
             sb.append(' ');
             sb.append(args[i]);
         }
-        
+
         // remove quotation marks
         sb.deleteCharAt(0);
         sb.deleteCharAt(sb.length() - 1);
-        
+
         // copy other elements
         fixedArgs[0] = args[0];
         fixedArgs[1] = sb.toString();
-        for(int i = end + 1; i < args.length; i++) {
+        for (int i = end + 1; i < args.length; i++) {
             fixedArgs[i - offset] = args[i];
         }
-        
+
         return fixedArgs;
     }
 }
