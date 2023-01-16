@@ -19,8 +19,6 @@ import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
 public class TXResourcePack implements IResourcePack {
 
-    private static boolean fetchedAssets = false;
-
     private final String name;
     private final Path dir;
 
@@ -42,9 +40,8 @@ public class TXResourcePack implements IResourcePack {
     @SuppressWarnings("rawtypes")
     @Override
     public Set getResourceDomains() {
-        if (!fetchedAssets && TXLoaderCore.isRemoteReachable) {
+        if (TXLoaderCore.isRemoteReachable) {
             RemoteHandler.getAssets();
-            fetchedAssets = true;
         }
 
         File[] subDirs = this.dir.toFile().listFiles((FileFilter) DirectoryFileFilter.DIRECTORY);
