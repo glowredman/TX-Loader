@@ -51,6 +51,7 @@ public class CommandTX implements ICommand {
             }
             sender.addChatMessage(
                     getColoredText("Failed saving Config! Look at the Log to find the Cause.", EnumChatFormatting.RED));
+            return;
         }
         if (args[0].equals("add")) {
             if (args.length < 3) {

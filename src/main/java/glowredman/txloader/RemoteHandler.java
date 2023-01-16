@@ -99,6 +99,7 @@ class RemoteHandler {
             } catch (Exception e) {
                 TXLoaderCore.LOGGER.error("Failed to save asset!", e);
                 failed++;
+                continue;
             }
             TXLoaderCore.LOGGER.debug("Successfully fetched {}", asset.resourceLocation);
             added++;
