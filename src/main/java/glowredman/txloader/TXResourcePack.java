@@ -1,6 +1,5 @@
 package glowredman.txloader;
 
-import cpw.mods.fml.common.ModContainer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
@@ -11,11 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
+
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
+
+import cpw.mods.fml.common.ModContainer;
 
 public class TXResourcePack implements IResourcePack {
 

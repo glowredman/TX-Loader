@@ -13,7 +13,8 @@ public class AssetBuilder {
 
     /**
      *
-     * @param resourceLocationOverride The ResourceLocation used to copy the asset to. Defaults the same ResourceLocation used by Mojang. Example: <code>minecraft/lang/en_US.lang</code>
+     * @param resourceLocationOverride The ResourceLocation used to copy the asset to. Defaults the same
+     *                                 ResourceLocation used by Mojang. Example: <code>minecraft/lang/en_US.lang</code>
      * @return This {@link AssetBuilder} object to allow chaining of method calls
      * @author glowredman
      */
@@ -23,7 +24,9 @@ public class AssetBuilder {
     }
 
     /**
-     * Marks this {@link Asset} as 'forced'. Minecraft will prioritize this asset over any other with the same ResourceLocation.
+     * Marks this {@link Asset} as 'forced'. Minecraft will prioritize this asset over any other with the same
+     * ResourceLocation.
+     * 
      * @return This {@link AssetBuilder} object to allow chaining of method calls
      * @author glowredman
      */
@@ -45,6 +48,7 @@ public class AssetBuilder {
 
     /**
      * Adds this {@link Asset} to the list of remote assets to load.
+     * 
      * @author glowredman
      */
     public void add() {

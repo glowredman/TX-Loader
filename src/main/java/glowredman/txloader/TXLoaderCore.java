@@ -1,7 +1,16 @@
 package glowredman.txloader;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
@@ -9,12 +18,6 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 import glowredman.txloader.ConfigHandler.Asset;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 @Name("TX Loader Core")
 @TransformerExclusions("glowredman.txloader")
@@ -34,8 +37,7 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
 
     @Override
     public String[] getASMTransformerClass() {
-        return FMLLaunchHandler.side().isClient()
-                ? new String[] {MinecraftClassTransformer.class.getName()}
+        return FMLLaunchHandler.side().isClient() ? new String[] { MinecraftClassTransformer.class.getName() }
                 : new String[0];
     }
 
@@ -75,7 +77,8 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
 
     /**
      *
-     * @param resourceLocation The ResourceLocation used to identify the asset on Mojang's side. Example: <code>minecraft/lang/en_us.lang</code>
+     * @param resourceLocation The ResourceLocation used to identify the asset on Mojang's side. Example:
+     *                         <code>minecraft/lang/en_us.lang</code>
      * @return An {@link AssetBuilder} object to specify further properties
      * @author glowredman
      */

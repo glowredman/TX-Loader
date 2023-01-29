@@ -1,6 +1,5 @@
 package glowredman.txloader;
 
-import glowredman.txloader.ConfigHandler.Asset;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,8 +8,11 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+
+import glowredman.txloader.ConfigHandler.Asset;
 
 class RemoteHandler {
 
@@ -63,15 +65,13 @@ class RemoteHandler {
                 }
                 try {
                     String assetsURL = TXLoaderCore.GSON.fromJson(
-                                    IOUtils.toString(new URL(url), StandardCharsets.UTF_8), JVersionDetails.class)
-                            .assetIndex
-                            .url;
+                            IOUtils.toString(new URL(url), StandardCharsets.UTF_8),
+                            JVersionDetails.class).assetIndex.url;
                     assets.put(
                             asset.version,
                             TXLoaderCore.GSON.fromJson(
-                                            IOUtils.toString(new URL(assetsURL), StandardCharsets.UTF_8),
-                                            JObjects.class)
-                                    .objects);
+                                    IOUtils.toString(new URL(assetsURL), StandardCharsets.UTF_8),
+                                    JObjects.class).objects);
                 } catch (Exception e) {
                     TXLoaderCore.LOGGER.error("Failed to get asset information!", e);
                     assets.put(asset.version, new HashMap<>()); // don't check this version again...

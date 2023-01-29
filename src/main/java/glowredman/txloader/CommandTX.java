@@ -1,7 +1,7 @@
 package glowredman.txloader;
 
-import glowredman.txloader.ConfigHandler.Asset;
 import java.util.List;
+
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommand;
@@ -11,6 +11,8 @@ import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.ClientCommandHandler;
+
+import glowredman.txloader.ConfigHandler.Asset;
 
 public class CommandTX implements ICommand {
 
@@ -44,9 +46,10 @@ public class CommandTX implements ICommand {
         }
         if (args[0].equals("save")) {
             if (ConfigHandler.save()) {
-                sender.addChatMessage(getColoredText(
-                        "Config saved successfully. The Changes take effect after restarting the Game.",
-                        EnumChatFormatting.GREEN));
+                sender.addChatMessage(
+                        getColoredText(
+                                "Config saved successfully. The Changes take effect after restarting the Game.",
+                                EnumChatFormatting.GREEN));
                 return;
             }
             sender.addChatMessage(
@@ -64,9 +67,10 @@ public class CommandTX implements ICommand {
                 return;
             }
             if (args.length > 5) {
-                sender.addChatMessage(getColoredText(
-                        "Too many Arguments! If your Version has Spaces, wrap it in Quotation Marks.",
-                        EnumChatFormatting.RED));
+                sender.addChatMessage(
+                        getColoredText(
+                                "Too many Arguments! If your Version has Spaces, wrap it in Quotation Marks.",
+                                EnumChatFormatting.RED));
                 return;
             }
             if (args.length == 3) {
@@ -127,11 +131,14 @@ public class CommandTX implements ICommand {
     }
 
     /**
-     * Some Minecraft versions have spaces in their name (e.g. <code>1.14.2 Pre-Release 4</code>).
-     * The later part of {@link CommandTX#processCommand(ICommandSender, String[])} assumes the version to only be in one element of the <code>args</code>-array.
-     * Minecrafts splits the entered command at the spaces
+     * Some Minecraft versions have spaces in their name (e.g. <code>1.14.2 Pre-Release 4</code>). The later part of
+     * {@link CommandTX#processCommand(ICommandSender, String[])} assumes the version to only be in one element of the
+     * <code>args</code>-array. Minecrafts splits the entered command at the spaces
+     * 
      * @param args the command arguments, as passed to {@link CommandTX#processCommand(ICommandSender, String[])}
-     * @return <b>args</b> if no version wrapping was done<br><b>args</b> with all version elements joined together, if valid version wrapping was done<br>an empty {@link String} array, if invalid wrapping was done
+     * @return <b>args</b> if no version wrapping was done<br>
+     *         <b>args</b> with all version elements joined together, if valid version wrapping was done<br>
+     *         an empty {@link String} array, if invalid wrapping was done
      * @author glowredman
      * @see CommandHandler#executeCommand(ICommandSender, String)
      * @see ClientCommandHandler#executeCommand(ICommandSender, String)

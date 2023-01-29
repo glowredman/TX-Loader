@@ -1,18 +1,21 @@
 package glowredman.txloader;
 
-import com.google.common.reflect.TypeToken;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.apache.commons.io.FileUtils;
+
+import com.google.common.reflect.TypeToken;
 
 class ConfigHandler {
 
     private static File configFile;
     private static final Type TYPE = new TypeToken<List<Asset>>() {
+
         private static final long serialVersionUID = 1L;
     }.getType();
 
@@ -46,8 +49,7 @@ class ConfigHandler {
             FileUtils.write(
                     configFile,
                     TXLoaderCore.GSON.toJson(
-                            TXLoaderCore.REMOTE_ASSETS.parallelStream()
-                                    .filter(a -> !a.addedByMod)
+                            TXLoaderCore.REMOTE_ASSETS.parallelStream().filter(a -> !a.addedByMod)
                                     .collect(Collectors.toList()),
                             TYPE),
                     StandardCharsets.UTF_8);
@@ -82,8 +84,8 @@ class ConfigHandler {
         }
 
         if (oresources.exists()) {
-            TXLoaderCore.LOGGER.info(
-                    "Attempting to move assets from ./oresources/ to ./config/txloader/forceload/ ...");
+            TXLoaderCore.LOGGER
+                    .info("Attempting to move assets from ./oresources/ to ./config/txloader/forceload/ ...");
 
             for (File f : oresources.listFiles()) {
                 try {
@@ -131,8 +133,8 @@ class ConfigHandler {
 
         File getFile() {
             File path = this.forceLoad ? TXLoaderCore.forceResourcesDir : TXLoaderCore.resourcesDir;
-            String resourceLocation =
-                    this.resourceLocationOverride == null ? this.resourceLocation : this.resourceLocationOverride;
+            String resourceLocation = this.resourceLocationOverride == null ? this.resourceLocation
+                    : this.resourceLocationOverride;
             return new File(path, resourceLocation);
         }
     }
