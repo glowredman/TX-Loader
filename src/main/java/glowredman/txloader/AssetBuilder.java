@@ -1,13 +1,13 @@
 package glowredman.txloader;
 
-import glowredman.txloader.ConfigHandler.Asset;
+import glowredman.txloader.Asset.Source;
 
 public class AssetBuilder {
 
     private final Asset asset;
 
     AssetBuilder(String resourceLocation) {
-        this.asset = new Asset(resourceLocation, RemoteHandler.latestRelease);
+        this.asset = new Asset(resourceLocation, RemoteHandler.latestRelease, Source.ASSET);
         this.asset.addedByMod = true;
     }
 
@@ -43,6 +43,19 @@ public class AssetBuilder {
      */
     public AssetBuilder setVersion(String version) {
         this.asset.version = version;
+        return this;
+    }
+
+    /**
+     * Define this {@link Asset}'s source. Default is {@link Source#ASSET}. {@link Source#CLIENT} and
+     * {@link Source#SERVER} will be cached.
+     * 
+     * @param source
+     * @return This {@link AssetBuilder} object to allow chaining of method calls
+     * @author glowredman
+     */
+    public AssetBuilder setSource(Source source) {
+        this.asset.source = source;
         return this;
     }
 
