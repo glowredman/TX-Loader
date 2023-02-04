@@ -12,9 +12,9 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraftforge.client.ClientCommandHandler;
 
-import glowredman.txloader.ConfigHandler.Asset;
+import glowredman.txloader.Asset.Source;
 
-public class CommandTX implements ICommand {
+class CommandTX implements ICommand {
 
     @Override
     public int compareTo(Object o) {
@@ -28,7 +28,7 @@ public class CommandTX implements ICommand {
 
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/tx <save|add <version> <resourceLocation> [resourceLocationOverride] [force]>";
+        return "/tx <save|add <version> <source> <resourceLocation> [resourceLocationOverride] [force]>";
     }
 
     @SuppressWarnings("rawtypes")
@@ -39,12 +39,13 @@ public class CommandTX implements ICommand {
 
     @Override
     public void processCommand(ICommandSender sender, String[] args) {
-        System.out.println(args.length);
-        if (args.length == 0) {
+        int length = args.length;
+        if (length == 0) {
             sender.addChatMessage(getColoredText("Not enough Arguments!", EnumChatFormatting.RED));
             return;
         }
-        if (args[0].equals("save")) {
+        String mode = args[0];
+        if (mode.equals("save")) {
             if (ConfigHandler.save()) {
                 sender.addChatMessage(
                         getColoredText(
@@ -56,44 +57,41 @@ public class CommandTX implements ICommand {
                     getColoredText("Failed saving Config! Look at the Log to find the Cause.", EnumChatFormatting.RED));
             return;
         }
-        if (args[0].equals("add")) {
-            if (args.length < 3) {
+        if (mode.equals("add")) {
+            if (length < 4) {
                 sender.addChatMessage(getColoredText("Not enough Arguments!", EnumChatFormatting.RED));
                 return;
             }
             args = fixSpacesForVersion(args);
-            if (args.length == 0) {
+            if (length == 0) {
                 sender.addChatMessage(getColoredText("Missing closing Quotation Mark!", EnumChatFormatting.RED));
                 return;
             }
-            if (args.length > 5) {
+            if (length > 6) {
                 sender.addChatMessage(
                         getColoredText(
                                 "Too many Arguments! If your Version has Spaces, wrap it in Quotation Marks.",
                                 EnumChatFormatting.RED));
                 return;
             }
-            if (args.length == 3) {
-                TXLoaderCore.REMOTE_ASSETS.add(new Asset(args[2], args[1]));
-                sender.addChatMessage(getColoredText("Done. Don't forget to save!", EnumChatFormatting.GREEN));
-                return;
-            }
-            if (args.length == 4) {
-                if (args[3].equals("true")) {
-                    TXLoaderCore.REMOTE_ASSETS.add(new Asset(args[2], args[1], true));
-                    sender.addChatMessage(getColoredText("Done. Don't forget to save!", EnumChatFormatting.GREEN));
-                    return;
+            final Asset asset = new Asset(args[3], args[1], Source.get(args[2]));
+            if (length != 4) {
+                String arg4 = args[4];
+                if (length == 5) {
+                    // argument 4 may either be forceLoad or resourceLocationOverride
+                    if (arg4.equals("true")) {
+                        asset.forceLoad = true;
+                    } else if (arg4.equals("false")) {
+                        asset.forceLoad = false;
+                    } else {
+                        asset.resourceLocationOverride = arg4;
+                    }
+                } else {
+                    asset.resourceLocationOverride = arg4;
+                    asset.forceLoad = args[5].equals("true");
                 }
-                if (args[3].equals("false")) {
-                    TXLoaderCore.REMOTE_ASSETS.add(new Asset(args[2], args[1], false));
-                    sender.addChatMessage(getColoredText("Done. Don't forget to save!", EnumChatFormatting.GREEN));
-                    return;
-                }
-                TXLoaderCore.REMOTE_ASSETS.add(new Asset(args[2], args[1], args[3]));
-                sender.addChatMessage(getColoredText("Done. Don't forget to save!", EnumChatFormatting.GREEN));
-                return;
             }
-            TXLoaderCore.REMOTE_ASSETS.add(new Asset(args[2], args[1], args[3], args[4].equals("true")));
+            TXLoaderCore.REMOTE_ASSETS.add(asset);
             sender.addChatMessage(getColoredText("Done. Don't forget to save!", EnumChatFormatting.GREEN));
         }
     }
@@ -106,16 +104,20 @@ public class CommandTX implements ICommand {
     @SuppressWarnings("rawtypes")
     @Override
     public List addTabCompletionOptions(ICommandSender sender, String[] args) {
-        if (args.length == 1) {
+        int length = args.length;
+        if (length == 1) {
             return CommandBase.getListOfStringsMatchingLastWord(args, "add", "save");
         }
-        if (!args[0].equals("add") || args.length > 5) {
+        if (!args[0].equals("add") || length > 6) {
             return null;
         }
-        if (args.length == 2) {
+        if (length == 2) {
             return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, RemoteHandler.VERSIONS.keySet());
         }
-        if (args.length == 4 || args.length == 5) {
+        if (length == 3) {
+            return CommandBase.getListOfStringsFromIterableMatchingLastWord(args, Source.NAMES);
+        }
+        if (length == 5 || length == 6) {
             return CommandBase.getListOfStringsMatchingLastWord(args, "true", "false");
         }
         return null;

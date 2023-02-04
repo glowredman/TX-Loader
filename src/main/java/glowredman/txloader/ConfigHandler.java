@@ -103,39 +103,4 @@ class ConfigHandler {
             }
         }
     }
-
-    static class Asset {
-
-        String resourceLocation;
-        String resourceLocationOverride;
-        boolean forceLoad = false;
-        String version = RemoteHandler.latestRelease;
-        transient boolean addedByMod = false;
-
-        Asset(String resourceLocation, String version) {
-            this(resourceLocation, version, null, false);
-        }
-
-        Asset(String resourceLocation, String version, String resourceLocationOverride) {
-            this(resourceLocation, version, resourceLocationOverride, false);
-        }
-
-        Asset(String resourceLocation, String version, boolean force) {
-            this(resourceLocation, version, null, force);
-        }
-
-        Asset(String resourceLocation, String version, String resourceLocationOverride, boolean force) {
-            this.resourceLocation = resourceLocation;
-            this.resourceLocationOverride = resourceLocationOverride;
-            this.forceLoad = force;
-            this.version = version;
-        }
-
-        File getFile() {
-            File path = this.forceLoad ? TXLoaderCore.forceResourcesDir : TXLoaderCore.resourcesDir;
-            String resourceLocation = this.resourceLocationOverride == null ? this.resourceLocation
-                    : this.resourceLocationOverride;
-            return new File(path, resourceLocation);
-        }
-    }
 }

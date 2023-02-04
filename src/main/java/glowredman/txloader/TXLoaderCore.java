@@ -17,7 +17,6 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
-import glowredman.txloader.ConfigHandler.Asset;
 
 @Name("TX Loader Core")
 @TransformerExclusions("glowredman.txloader")
@@ -66,6 +65,7 @@ public class TXLoaderCore implements IFMLLoadingPlugin {
         forceResourcesDir.mkdirs();
 
         isRemoteReachable = RemoteHandler.getVersions();
+        JarHandler.indexJars();
         ConfigHandler.load();
         ConfigHandler.moveRLAssets();
     }
