@@ -101,7 +101,7 @@ class RemoteHandler {
                         jarPath = versionDetails.downloads.client.downloadJar(version, "client.jar");
                         JarHandler.CACHED_CLIENT_JARS.put(version, jarPath);
                     } catch (Exception e) {
-                        TXLoaderCore.LOGGER.error("Failed to download client jar and no cached jar was be found", e);
+                        TXLoaderCore.LOGGER.error("Failed to download client jar and no cached jar was found", e);
                         failed++;
                         continue;
                     }
@@ -110,7 +110,7 @@ class RemoteHandler {
                         jarPath = versionDetails.downloads.server.downloadJar(version, "server.jar");
                         JarHandler.CACHED_SERVER_JARS.put(version, jarPath);
                     } catch (Exception e) {
-                        TXLoaderCore.LOGGER.error("Failed to download server jar and no cached jar was be found", e);
+                        TXLoaderCore.LOGGER.error("Failed to download server jar and no cached jar was found", e);
                         failed++;
                         continue;
                     }
