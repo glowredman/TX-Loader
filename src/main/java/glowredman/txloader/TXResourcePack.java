@@ -1,6 +1,5 @@
 package glowredman.txloader;
 
-import cpw.mods.fml.common.ModContainer;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileFilter;
@@ -11,15 +10,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
+
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
+
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
-public class TXResourcePack implements IResourcePack {
+import cpw.mods.fml.common.ModContainer;
 
-    private static boolean fetchedAssets = false;
+public class TXResourcePack implements IResourcePack {
 
     private final String name;
     private final Path dir;
@@ -42,9 +43,8 @@ public class TXResourcePack implements IResourcePack {
     @SuppressWarnings("rawtypes")
     @Override
     public Set getResourceDomains() {
-        if (!fetchedAssets && TXLoaderCore.isRemoteReachable) {
+        if (TXLoaderCore.isRemoteReachable) {
             RemoteHandler.getAssets();
-            fetchedAssets = true;
         }
 
         File[] subDirs = this.dir.toFile().listFiles((FileFilter) DirectoryFileFilter.DIRECTORY);

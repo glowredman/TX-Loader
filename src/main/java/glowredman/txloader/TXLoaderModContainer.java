@@ -1,15 +1,17 @@
 package glowredman.txloader;
 
+import java.io.File;
+import java.util.Collections;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.versioning.VersionParser;
 import cpw.mods.fml.common.versioning.VersionRange;
-import java.io.File;
-import java.util.Collections;
 
 public class TXLoaderModContainer extends DummyModContainer {
 

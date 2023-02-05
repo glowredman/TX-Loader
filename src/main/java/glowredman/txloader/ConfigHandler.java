@@ -1,18 +1,21 @@
 package glowredman.txloader;
 
-import com.google.common.reflect.TypeToken;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.apache.commons.io.FileUtils;
+
+import com.google.common.reflect.TypeToken;
 
 class ConfigHandler {
 
     private static File configFile;
     private static final Type TYPE = new TypeToken<List<Asset>>() {
+
         private static final long serialVersionUID = 1L;
     }.getType();
 
@@ -46,8 +49,7 @@ class ConfigHandler {
             FileUtils.write(
                     configFile,
                     TXLoaderCore.GSON.toJson(
-                            TXLoaderCore.REMOTE_ASSETS.parallelStream()
-                                    .filter(a -> !a.addedByMod)
+                            TXLoaderCore.REMOTE_ASSETS.parallelStream().filter(a -> !a.addedByMod)
                                     .collect(Collectors.toList()),
                             TYPE),
                     StandardCharsets.UTF_8);
@@ -82,8 +84,8 @@ class ConfigHandler {
         }
 
         if (oresources.exists()) {
-            TXLoaderCore.LOGGER.info(
-                    "Attempting to move assets from ./oresources/ to ./config/txloader/forceload/ ...");
+            TXLoaderCore.LOGGER
+                    .info("Attempting to move assets from ./oresources/ to ./config/txloader/forceload/ ...");
 
             for (File f : oresources.listFiles()) {
                 try {
@@ -99,41 +101,6 @@ class ConfigHandler {
             } catch (Exception e) {
                 TXLoaderCore.LOGGER.warn("Failed to delete ./oresources/", e);
             }
-        }
-    }
-
-    static class Asset {
-
-        String resourceLocation;
-        String resourceLocationOverride;
-        boolean forceLoad = false;
-        String version = RemoteHandler.latestRelease;
-        transient boolean addedByMod = false;
-
-        Asset(String resourceLocation, String version) {
-            this(resourceLocation, version, null, false);
-        }
-
-        Asset(String resourceLocation, String version, String resourceLocationOverride) {
-            this(resourceLocation, version, resourceLocationOverride, false);
-        }
-
-        Asset(String resourceLocation, String version, boolean force) {
-            this(resourceLocation, version, null, force);
-        }
-
-        Asset(String resourceLocation, String version, String resourceLocationOverride, boolean force) {
-            this.resourceLocation = resourceLocation;
-            this.resourceLocationOverride = resourceLocationOverride;
-            this.forceLoad = force;
-            this.version = version;
-        }
-
-        File getFile() {
-            File path = this.forceLoad ? TXLoaderCore.forceResourcesDir : TXLoaderCore.resourcesDir;
-            String resourceLocation =
-                    this.resourceLocationOverride == null ? this.resourceLocation : this.resourceLocationOverride;
-            return new File(path, resourceLocation);
         }
     }
 }

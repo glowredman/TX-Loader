@@ -1,8 +1,10 @@
 package glowredman.txloader;
 
 import java.util.List;
+
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -65,12 +67,13 @@ public class MinecraftClassTransformer implements IClassTransformer {
 
         // insert new instructions
         InsnList insertForcePackInsnList = new InsnList();
-        insertForcePackInsnList.add(new MethodInsnNode(
-                Opcodes.INVOKESTATIC,
-                "glowredman/txloader/MinecraftClassTransformer",
-                "insertForcePack",
-                "(Ljava/util/List;)V",
-                false));
+        insertForcePackInsnList.add(
+                new MethodInsnNode(
+                        Opcodes.INVOKESTATIC,
+                        "glowredman/txloader/MinecraftClassTransformer",
+                        "insertForcePack",
+                        "(Ljava/util/List;)V",
+                        false));
         insertForcePackInsnList.add(new VarInsnNode(Opcodes.ALOAD, 1));
         targetMethod.instructions.insertBefore(targetInsn, insertForcePackInsnList);
 
@@ -79,7 +82,7 @@ public class MinecraftClassTransformer implements IClassTransformer {
         return classWriter.toByteArray();
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public static void insertForcePack(List resourcePackList) {
         resourcePackList.add(new TXResourcePack.Force());
     }
