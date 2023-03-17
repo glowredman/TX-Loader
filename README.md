@@ -17,7 +17,7 @@ TX Loader
 |resourceLocation|String||Source path|
 |resourceLocationOverride|String|`null`|Destination path, if you want it to be different from the source path|
 |forceLoad|boolean|`false`|If true, this asset will be prioritized over assets from other resource packs|
-|source|[Source](https://github.com/glowredman/TX-Loader/blob/1a440d07ab299e921109f4ed463625d186e15ec1/src/main/java/glowredman/txloader/Asset.java#L39-L55)|`ASSET`|Use `CLIENT` for everything found in the client jar, `SERVER` for everything found in the server jar and `ASSET` for everything else|
+|source|Enum|`ASSET`|Use `CLIENT` for everything found in the client jar, `SERVER` for everything found in the server jar and `ASSET` for everything else|
 |version|String|latest release|The version from which this asset should be taken(valid versions can be found [here](https://launchermeta.mojang.com/mc/game/version_manifest.json))<br>*It is recommended to populate this field*|
 
 *Example config:*

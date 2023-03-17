@@ -2,6 +2,7 @@ package glowredman.txloader;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 class Asset {
@@ -42,7 +43,7 @@ class Asset {
         CLIENT,
         SERVER;
 
-        static final Iterable<String> NAMES = Arrays.stream(values()).map(Source::name).collect(Collectors.toList());
+        static final Collection<String> NAMES = Arrays.stream(values()).map(Source::name).collect(Collectors.toList());
 
         static Source get(String name) {
             try {

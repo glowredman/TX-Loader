@@ -11,14 +11,15 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.minecraft.client.resources.IResourcePack;
-import net.minecraft.client.resources.data.IMetadataSection;
-import net.minecraft.client.resources.data.IMetadataSerializer;
-import net.minecraft.util.ResourceLocation;
+import javax.annotation.Nullable;
 
 import org.apache.commons.io.filefilter.DirectoryFileFilter;
 
-import cpw.mods.fml.common.ModContainer;
+import net.minecraft.client.resources.IResourcePack;
+import net.minecraft.client.resources.data.IMetadataSection;
+import net.minecraft.client.resources.data.MetadataSerializer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.ModContainer;
 
 public class TXResourcePack implements IResourcePack {
 
@@ -31,18 +32,17 @@ public class TXResourcePack implements IResourcePack {
     }
 
     @Override
-    public InputStream getInputStream(ResourceLocation rl) throws IOException {
-        return new FileInputStream(this.getResourcePath(rl).toFile());
+    public InputStream getInputStream(ResourceLocation location) throws IOException {
+        return new FileInputStream(this.getResourcePath(location).toFile());
     }
 
     @Override
-    public boolean resourceExists(ResourceLocation rl) {
-        return Files.exists(this.getResourcePath(rl));
+    public boolean resourceExists(ResourceLocation location) {
+        return Files.exists(this.getResourcePath(location));
     }
 
-    @SuppressWarnings("rawtypes")
     @Override
-    public Set getResourceDomains() {
+    public Set<String> getResourceDomains() {
         if (TXLoaderCore.isRemoteReachable) {
             RemoteHandler.getAssets();
         }
@@ -56,12 +56,13 @@ public class TXResourcePack implements IResourcePack {
     }
 
     @Override
-    public IMetadataSection getPackMetadata(IMetadataSerializer p_135058_1_, String p_135058_2_) throws IOException {
+    @Nullable
+    public <T extends IMetadataSection> T getPackMetadata(MetadataSerializer metadataSerializer, String metadataSectionName) throws IOException {
         return null;
     }
 
     @Override
-    public BufferedImage getPackImage() {
+    public BufferedImage getPackImage() throws IOException {
         return null;
     }
 

@@ -1,10 +1,5 @@
 package glowredman.txloader;
 
-import java.util.List;
-
-import net.minecraft.launchwrapper.IClassTransformer;
-import net.minecraft.launchwrapper.Launch;
-
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
@@ -15,14 +10,17 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.launchwrapper.Launch;
+
 public class MinecraftClassTransformer implements IClassTransformer {
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        if (!"net.minecraft.client.Minecraft".equals(transformedName)) {
-            return basicClass;
+        if ("net.minecraft.client.Minecraft".equals(transformedName)) {
+            return transformMinecraft(basicClass);
         }
-        return transformMinecraft(basicClass);
+        return basicClass;
     }
 
     private static byte[] transformMinecraft(byte[] basicClass) {
@@ -70,7 +68,7 @@ public class MinecraftClassTransformer implements IClassTransformer {
         insertForcePackInsnList.add(
                 new MethodInsnNode(
                         Opcodes.INVOKESTATIC,
-                        "glowredman/txloader/MinecraftClassTransformer",
+                        "glowredman/txloader/RefreshResourcesHook",
                         "insertForcePack",
                         "(Ljava/util/List;)V",
                         false));
@@ -80,10 +78,5 @@ public class MinecraftClassTransformer implements IClassTransformer {
         ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
         classNode.accept(classWriter);
         return classWriter.toByteArray();
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public static void insertForcePack(List resourcePackList) {
-        resourcePackList.add(new TXResourcePack.Force());
     }
 }

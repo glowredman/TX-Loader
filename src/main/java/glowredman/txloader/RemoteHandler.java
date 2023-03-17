@@ -18,11 +18,10 @@ import org.apache.commons.io.IOUtils;
 
 import com.google.gson.JsonSyntaxException;
 
-import cpw.mods.fml.common.ProgressManager;
-import cpw.mods.fml.common.ProgressManager.ProgressBar;
 import glowredman.txloader.Asset.Source;
+import net.minecraftforge.fml.common.ProgressManager;
+import net.minecraftforge.fml.common.ProgressManager.ProgressBar;
 
-@SuppressWarnings("deprecation")
 class RemoteHandler {
 
     static String latestRelease;

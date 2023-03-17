@@ -6,12 +6,12 @@ import java.util.Collections;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.LoadController;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
-import cpw.mods.fml.common.versioning.VersionParser;
-import cpw.mods.fml.common.versioning.VersionRange;
+import net.minecraftforge.fml.common.DummyModContainer;
+import net.minecraftforge.fml.common.LoadController;
+import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.versioning.VersionParser;
+import net.minecraftforge.fml.common.versioning.VersionRange;
 
 public class TXLoaderModContainer extends DummyModContainer {
 
@@ -23,13 +23,14 @@ public class TXLoaderModContainer extends DummyModContainer {
         md.description = "Loads official/custom assets";
         md.modId = "txloader";
         md.name = "TX Loader";
+        md.updateJSON = "https://files.data-hole.de/mods/txloader/updates.json";
         md.url = "https://github.com/glowredman/TX-Loader";
-        md.version = "GRADLETOKEN_VERSION";
+        md.version = "1.5";
     }
 
     @Override
     public VersionRange acceptableMinecraftVersionRange() {
-        return VersionParser.parseRange("[1.7.10]");
+        return VersionParser.parseRange("[1.12.2]");
     }
 
     @Override

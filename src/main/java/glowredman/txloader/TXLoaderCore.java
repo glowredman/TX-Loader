@@ -11,17 +11,17 @@ import org.apache.logging.log4j.Logger;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import cpw.mods.fml.relauncher.FMLLaunchHandler;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.Name;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
+import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.MCVersion;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.Name;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.SortingIndex;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 @Name("TX Loader Core")
 @TransformerExclusions("glowredman.txloader")
 @SortingIndex(1001)
-@MCVersion("1.7.10")
+@MCVersion("1.12.2")
 public class TXLoaderCore implements IFMLLoadingPlugin {
 
     static final Logger LOGGER = LogManager.getLogger("TX Loader");
