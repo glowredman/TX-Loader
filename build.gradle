@@ -5,7 +5,7 @@ plugins {
 }
 
 
-version = '1.5' // Reminder: update TXLoaderModContainer aswell
+version = '1.5.1'
 group = 'glowredman.txloader'
 archivesBaseName = 'txloader-1.12.2'
 
