@@ -79,7 +79,6 @@ public class TXResourcePack implements IResourcePack {
 
         public Normal(ModContainer modContainer) {
             super("TX Loader Resources", TXLoaderCore.resourcesDir.toPath());
-            TXLoaderCore.resourcesDir.mkdir();
         }
     }
 
@@ -87,7 +86,6 @@ public class TXResourcePack implements IResourcePack {
 
         public Force() {
             super("TX Loader Forced Resources", TXLoaderCore.forceResourcesDir.toPath());
-            TXLoaderCore.forceResourcesDir.mkdir();
         }
     }
 }
