@@ -17,6 +17,7 @@ public class TXLoaderModContainer extends DummyModContainer {
 
     public TXLoaderModContainer() {
         super(new ModMetadata());
+        String version = TXLoaderModContainer.class.getPackage().getImplementationVersion();
         ModMetadata md = this.getMetadata();
         md.authorList = Collections.singletonList("glowredman");
         md.credits = "portablejim (Additional Resources mod)";
@@ -25,7 +26,7 @@ public class TXLoaderModContainer extends DummyModContainer {
         md.name = "TX Loader";
         md.updateJSON = "https://files.data-hole.de/mods/txloader/updates.json";
         md.url = "https://github.com/glowredman/TX-Loader";
-        md.version = "1.5";
+        md.version = version == null ? "version not found" : version;
     }
 
     @Override
