@@ -66,7 +66,7 @@ jar {
             "Implementation-Vendor" :"glowredman",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "FMLCorePlugin": "glowredman.txloader.TXLoaderCore",
-            "FMLCorePluginContainsFMLMod": "true"
+            "FMLCorePluginContainsFMLMod": "false"
         ])
     }
 }

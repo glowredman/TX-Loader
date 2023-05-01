@@ -75,7 +75,7 @@ public class MinecraftClassTransformer implements IClassTransformer {
         insertForcePackInsnList.add(new VarInsnNode(Opcodes.ALOAD, 1));
         targetMethod.instructions.insertBefore(targetInsn, insertForcePackInsnList);
 
-        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         classNode.accept(classWriter);
         return classWriter.toByteArray();
     }
